@@ -1,4 +1,4 @@
-### Industrial Robotics: Jonathan Davies
+# Industrial Robotics: Jonathan Davies
 
 ## Commit 1: Lab 1 and Lab 2
   - Lab 1 files
