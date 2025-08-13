@@ -30,14 +30,16 @@ class Lab2Solution:
         plt.close()
 
         # 4.1 and 4.2: Define the DH Parameters to create the Kinematic model
-        link1 = DHLink(d= 0.5, a= 0.3, alpha= pi/2, qlim= [-pi, pi]) 
+        link1 = DHLink(d= 0, a= 1, alpha= 0, qlim= [-pi, pi]) 
         link2 = DHLink(d= 0, a= 1, alpha= 0, qlim= [-pi, pi]) 
-        link3 = DHLink(d= 0, a= 0.2, alpha= -pi/2, qlim= [-pi, pi]) 
-        link4 = DHLink(d= 0.7, a= 0, alpha= pi/2, qlim= [-pi, pi])
+        link3 = DHLink(d= 0, a= 1, alpha= 0, qlim= [-pi, pi]) 
+        link4 = DHLink(d= 0, a= 1, alpha= 0, qlim= [-pi, pi])
         robot = DHRobot([link1, link2, link3, link4], name= 'myRobot')
-        workspace = [-3, 3, -3, 3, -3, 3]
+        workspace = [-3, 3, -3, 3, -3, 3]  # Define the workspace limits
         # q =  np.zeros([1,3]) # Initial joint angles = 0
-        q = np.array([-0.7506, 0.5895, -1.8286, 2.5971])  # Initial joint angles as shown in Canvas
+        q = np.array([-0.7506, 0.5895, -1.8286, 0.5971])  # Initial joint angles as shown in Canvas
+        
+        jointlimitlink1 = q[0] - pi
         
         
 
@@ -48,7 +50,7 @@ class Lab2Solution:
             print("[Warning] Custom plotting options (e.g., eelength) are not supported unless you patch the Robotics Toolbox.")
             print("See Canvas for instructions on how to apply the patch to enable these visual customisations.")
             robot.plot(q= q, limits= workspace)
-            print ("pose final position", robot.fkine(q))
+            # print ("pose final position", robot.fkine(q))
 
         input('Press Enter to finish the question\n')
         # 4.5 Get the joint limits
