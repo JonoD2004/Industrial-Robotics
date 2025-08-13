@@ -16,17 +16,17 @@ def lab1_solution_run():
     dist_start = lab1_solution.questions3_and_4(
         questions=[3],
         car1_start=SE2(300, 550, 0),
-        car2_start=SE2(1, 1, 0), #change this for starting position
+        car2_start=SE2(130, 300, -90), #change this for starting position
         max_steps=0  # no movement, just starting positions
     )
     print(f"Q3 distance at start: {dist_start[0]:.2f} meters")
 
     # Question 3 & 4: Given start poses, after some partial steps, what's the y in car1's frame?
     car1_start_pose = SE2(300, 550, 0)
-    car2_start_pose = SE2(508, 300, pi/2)  # 90 degrees in radians
+    car2_start_pose = SE2(1, 1, pi/2)  # 90 degrees in radians
 
-    steps_car1 = 7
-    steps_car2 = 5
+    steps_car1 = 23
+    steps_car2 = 17
 
     y_values = lab1_solution.questions3_and_4(
         questions=[3],

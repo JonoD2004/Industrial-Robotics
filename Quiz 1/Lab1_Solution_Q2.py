@@ -29,7 +29,7 @@ class Lab1Solution:
         trplot2(car1_tr.A, frame='1', color='b', length=50, width=0.05)
 
         total_steps = 360
-        iterations = 40
+        iterations = 106
 
         car1_move_tr = SE2((2 * pi * self.RADIUS_OUTER)/total_steps, 0, 0)
         car1_turn_tr = SE2(0, 0, -2 * pi / total_steps)
@@ -51,8 +51,8 @@ class Lab1Solution:
                 self.next_question = False
                 break
 
-        x_pos_pixels = car1_tr.t[0]
-        print(f"Exact X position after {iterations} iterations (pixels): {x_pos_pixels}")
+        y_pos_pixels = car1_tr.t[1]
+        print(f"Exact Y position after {iterations} iterations (pixels): {y_pos_pixels}")
 
 def lab1_solution_run():
     plt.close("all")
