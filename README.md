@@ -8,3 +8,7 @@
   - Quiz 1 files (setup)
 
 ## Commit 2: 
+  - Quiz 1 files updated to respond to questions we possibly may have in the course
+
+## Commit 3:
+  - 
