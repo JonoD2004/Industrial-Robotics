@@ -123,7 +123,7 @@ class Lab2Solution:
         Question 2 (done before 1 so it can keep this all in one file)
         """
         # 2.1 Create an instance of the cow herd with default parameters
-        cow_herd = RobotCow()
+        cow_herd = RobotCow(1)
         # 2.2 Check how many cows there are
         print("Number of cows: ", cow_herd.num_cows)
         # 2.3 Plot on single iteration of the random step movement

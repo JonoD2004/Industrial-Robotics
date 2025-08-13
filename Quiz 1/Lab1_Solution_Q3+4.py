@@ -16,7 +16,7 @@ def lab1_solution_run():
     dist_start = lab1_solution.questions3_and_4(
         questions=[3],
         car1_start=SE2(300, 550, 0),
-        car2_start=SE2(300, 125, 0),
+        car2_start=SE2(1, 1, 0), #change this for starting position
         max_steps=0  # no movement, just starting positions
     )
     print(f"Q3 distance at start: {dist_start[0]:.2f} meters")
