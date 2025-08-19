@@ -15,13 +15,14 @@ class Lab1Solution:
         self.fig = None
         self.next_question = False
 
-        self.RADIUS_OUTER = (550 - 66)/2
-        self.RADIUS_INNER = (500 - 125)/2
+        self.RADIUS_OUTER = (550 - 66) / 2
+        self.RADIUS_INNER = (500 - 125) / 2
 
-    def question2(self):
+        # Replace with the correct conversion factor from pixels to meters
+        self.PIXEL_TO_METER = 0.5
+
+    def question2_y(self):
         self.fig = plt.figure()
-        # Comment this out if you don't have on_close defined
-        # self.fig.canvas.mpl_connect('close_event', self.on_close)
         self.fig.canvas.manager.set_window_title('Question 2')
         plt.imshow(self.img)
         
@@ -29,9 +30,9 @@ class Lab1Solution:
         trplot2(car1_tr.A, frame='1', color='b', length=50, width=0.05)
 
         total_steps = 360
-        iterations = 106
+        iterations = 106  # now 106 as per your question
 
-        car1_move_tr = SE2((2 * pi * self.RADIUS_OUTER)/total_steps, 0, 0)
+        car1_move_tr = SE2((2 * pi * self.RADIUS_OUTER) / total_steps, 0, 0)
         car1_turn_tr = SE2(0, 0, -2 * pi / total_steps)
 
         for _ in range(iterations):
@@ -47,17 +48,19 @@ class Lab1Solution:
             plt.draw()
             plt.pause(0.01)
 
-            if self.next_question:
-                self.next_question = False
-                break
-
+        # Extract Y in pixels
         y_pos_pixels = car1_tr.t[1]
-        print(f"Exact Y position after {iterations} iterations (pixels): {y_pos_pixels}")
+
+        # Convert to meters
+        y_pos_meters = y_pos_pixels * self.PIXEL_TO_METER
+
+        print(f"Exact Y position after {iterations} iterations:")
+        print(f"  Y: {y_pos_pixels:.6f} px ({y_pos_meters:.6f} m)")
 
 def lab1_solution_run():
     plt.close("all")
     lab1_solution = Lab1Solution()
-    lab1_solution.question2()
+    lab1_solution.question2_y()
     plt.show()
 
 if __name__ == "__main__":

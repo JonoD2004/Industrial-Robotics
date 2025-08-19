@@ -16,17 +16,17 @@ def lab1_solution_run():
     dist_start = lab1_solution.questions3_and_4(
         questions=[3],
         car1_start=SE2(300, 550, 0),
-        car2_start=SE2(130, 300, -90), #change this for starting position
+        car2_start=SE2(32, 32, pi/2), #change this for starting position
         max_steps=0  # no movement, just starting positions
     )
     print(f"Q3 distance at start: {dist_start[0]:.2f} meters")
 
     # Question 3 & 4: Given start poses, after some partial steps, what's the y in car1's frame?
     car1_start_pose = SE2(300, 550, 0)
-    car2_start_pose = SE2(1, 1, pi/2)  # 90 degrees in radians
+    car2_start_pose = SE2(508, 300, pi/2)  # 90 degrees in radians
 
-    steps_car1 = 23
-    steps_car2 = 17
+    steps_car1 = 7
+    steps_car2 = 5
 
     y_values = lab1_solution.questions3_and_4(
         questions=[3],
@@ -66,21 +66,7 @@ class Lab1Solution:
         self.next_question = False
 
     def questions3_and_4(self, questions=[3,4], car1_start=SE2(300, 550, 0), car2_start=SE2(300, 125, 0),
-                        max_steps=360, steps_to_report=None, return_relative_y=False):
-        """
-        This function runs the simulation and plots the cars on the track.
-
-        Params:
-        - questions: list of question numbers (3 and/or 4)
-        - car1_start, car2_start: initial poses of the cars (SE2 objects)
-        - max_steps: how many steps to simulate (0 means no movement, just show start)
-        - steps_to_report: tuple with number of steps for car1 and car2 to report relative y for Q3
-        - return_relative_y: if True, returns the y-coordinate of car2 in car1’s frame after steps_to_report
-
-        Returns:
-        - list of y values if return_relative_y is True
-        - or list of distances if max_steps==0 for question 3
-        """
+                    max_steps=360, steps_to_report=None, return_relative_y=False):
         relative_y_results = []
         distances = []
 
@@ -91,37 +77,40 @@ class Lab1Solution:
 
             if question == 4:
                 plt.subplot(1, 2, 1)
-
             plt.imshow(self.img)
 
             car1_tr = car1_start
             car2_tr = car2_start
 
             if question == 4:
-                plt.subplot(1,2,2)
+                plt.subplot(1, 2, 2)
                 plt.xlabel('Timestep')
                 plt.ylabel("Distance between cars")
 
-            dist = np.zeros(max_steps if max_steps>0 else 1)
+            dist = np.zeros(max_steps if max_steps > 0 else 1)
 
-            for i in range(max_steps):
-                # Update positions only if we are actually stepping
-                if max_steps > 0:
+            # Determine target steps for each car if provided
+            steps_car1 = steps_car2 = max_steps
+            if steps_to_report is not None:
+                steps_car1, steps_car2 = steps_to_report
+
+            # Simulation loop
+            for i in range(max(steps_car1, steps_car2)):
+                # Only update cars if they haven't reached their stop step
+                if i < steps_car1:
                     car1_tr = ir.clean_SE2(car1_tr * self.car1_move_tr * self.car1_turn_tr)
+                if i < steps_car2:
                     car2_tr = ir.clean_SE2(car2_tr * self.car2_move_tr * self.car2_turn_tr)
 
-                if question == 4:
-                    plt.subplot(1,2,1)
-
+                # --- Plotting ---
                 plt.cla()
                 plt.imshow(self.img)
-
                 trplot2(car1_tr.A, frame='1', color='b', length=50, width=0.05)
                 trplot2(car2_tr.A, frame='2', color='r', length=50, width=0.05)
 
                 if question == 4:
-                    plt.subplot(1, 2, 2)
-                    dist[i] = linalg.norm(car1_tr.t - car2_tr.t)
+                    plt.subplot(1,2,2)
+                    dist[i] = np.linalg.norm(car1_tr.t - car2_tr.t)
                     plt.plot(range(1, i+2), dist[:i+1], 'b-')
                     plt.xlabel('Timestep')
                     plt.ylabel("Distance between cars")
@@ -133,24 +122,16 @@ class Lab1Solution:
                     self.next_question = False
                     break
 
-            # For Q3: if we want the relative y after partial steps
+            # After both cars have stopped at target steps
             if question == 3 and return_relative_y and steps_to_report is not None:
-                steps_car1, steps_car2 = steps_to_report
-                car1_tr_partial = car1_start
-                car2_tr_partial = car2_start
-
-                for i in range(max(steps_car1, steps_car2)):
-                    if i < steps_car1:
-                        car1_tr_partial = ir.clean_SE2(car1_tr_partial * self.car1_move_tr * self.car1_turn_tr)
-                    if i < steps_car2:
-                        car2_tr_partial = ir.clean_SE2(car2_tr_partial * self.car2_move_tr * self.car2_turn_tr)
-
-                car2_in_car1 = car1_tr_partial.inv() * car2_tr_partial
+                car2_in_car1 = car1_tr.inv() * car2_tr
                 relative_y_results.append(round(car2_in_car1.t[1], 2))
+                distance = np.linalg.norm(car2_tr.t - car1_tr.t)
+                print(f"Distance between cars after stopping: {distance:.2f} m")
 
             # For Q3 with no movement, just return starting distance
             if question == 3 and max_steps == 0:
-                dist_init = linalg.norm(car1_start.t - car2_start.t)
+                dist_init = np.linalg.norm(car1_start.t - car2_start.t)
                 distances.append(dist_init)
 
         if return_relative_y:

@@ -29,10 +29,10 @@ class Lab2Solution:
     def question2(self):
         base = np.eye(4)
 
-        degrees = 39
+        degrees = 75
         R1 = trotz(degrees, unit = 'deg')  # Rotate around Z axis by x degrees
-        T1 = transl(37, 0, 0)  # Translate in X by 37
-        
+        T1 = transl(49, 0, 0)  # Translate in X by 49
+
         translation = base @ R1 @ T1  # Apply rotation and translation to the base
 
         print ("Final Matrix:\n", SE3(translation).A)
