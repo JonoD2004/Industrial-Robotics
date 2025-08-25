@@ -17,3 +17,10 @@
   - Lab 4 files (unsolved)
   - Quiz 0 files (all solved and completed: good learning update)
   - Quiz 1 files (all solved and completed: stupid mistakes led to a bad mark of 47.5%)
+
+## Commit 3:
+  - Lab 4 solution
+  - Lab 5 starter
+  - lab 5 exercises pt 1
+  - Lab 5 exercises pt 2
+
