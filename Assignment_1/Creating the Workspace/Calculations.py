@@ -26,12 +26,12 @@ def Calculate_Inverse_Kinematics(robot, target_pose):
     else:
         raise ValueError("IK solution not found")
     
-def Calculate_Robot_Reach(x_pos_limit, x_neg_limit, y_pos_limit, y_neg_limit):
-    x_neg_limit = 0
-    x_pos_limit = 5
-    y_neg_limit = 0.35
-    y_pos_limit = 5
-    
+def Calculate_Robot_Reach():
+    x_neg_limit = 0.35
+    x_pos_limit = 1
+    y_neg_limit = 0
+    y_pos_limit = 1
+
     print(f"the robot can reach between {x_neg_limit} and {x_pos_limit} in the x direction")
     print(f"the robot can reach between {y_neg_limit} and {y_pos_limit} in the y direction")
     return x_pos_limit, x_neg_limit, y_pos_limit, y_neg_limit
