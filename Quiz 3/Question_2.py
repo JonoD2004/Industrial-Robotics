@@ -4,15 +4,15 @@ from roboticstoolbox import DHRobot, DHLink
 from ir_support import line_plane_intersection
 
 # Define the robot links
-l1 = DHLink(d=1, a=0, alpha=np.pi/2, offset=0)
-l2 = DHLink(d=0, a=2, alpha=0, offset=0)
-l3 = DHLink(d=0, a=3, alpha=0, offset=0)
+l1 = DHLink(d=1, a=0, alpha=pi/2, offset=0)
+l2 = DHLink(d=0, a=2, alpha=0,    offset=0)
+l3 = DHLink(d=0, a=3, alpha=0,    offset=0)
 
 # Create the robot
 R3 = DHRobot([l1, l2, l3], name="3-link robot")
 
 # Joint configuration
-q = [-pi/12, 0, 0]
+q = [pi/6,0,0]
 
 # Compute transforms
 T_all = R3.fkine_all(q)
