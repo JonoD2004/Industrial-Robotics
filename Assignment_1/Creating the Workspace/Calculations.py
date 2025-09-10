@@ -19,7 +19,7 @@ import Setup
 
 def Calculate_Inverse_Kinematics(robot, target_pose, environment, steps=1000):
     # Calculate inverse kinematics
-    ik_solution = robot.ikine_LM(target_pose)
+    ik_solution = robot.ikine_LM(target_pose, q0=robot.q, mask=[1, 1, 1, 1, 1, 0])
     
     if not ik_solution.success:
         raise ValueError(f"IK solution not found for pose:\n{target_pose}")
