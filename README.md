@@ -24,3 +24,9 @@
   - lab 5 exercises pt 1
   - Lab 5 exercises pt 2
 
+## Commit 4:
+  - Lab solution 5
+  - Assignment 1 finished
+  - Lab 6 starter
+  - No quiz three solutions yet.
+  - 
